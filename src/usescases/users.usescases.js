@@ -41,7 +41,7 @@ async function deleteById(id){
     return userDeleted;
 }
 
-async function updateById(newUserData){
+async function updateById(id,newUserData){
     const userUpdated =  await Users.findByIdAndUpdate(id,newUserData,{ new : true})  
     return userUpdated;
 }
