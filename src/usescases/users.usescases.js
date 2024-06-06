@@ -1,5 +1,5 @@
 const Users = require('../models/users.model');
-const createError = require('http-erros');
+const createError = require('http-errors');
 const encrypt = require('../lib/encrypt');
 // create //
 // getAll //
