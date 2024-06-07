@@ -1,5 +1,5 @@
 const Users = require('../models/users.model');
-const createError = require('http-erros');
+const createError = require('http-errors');
 const encrypt = require('../lib/encrypt');
 // create //
 // getAll //
@@ -41,8 +41,12 @@ async function deleteById(id){
     return userDeleted;
 }
 
-async function updateById(newUserData){
-    const userUpdated =  await Users.findByIdAndUpdate(id,newUserData,{ new : true})  
+async function updateById(id,newUserData){
+    
+    newUserData.updateAt = Date.now();
+    
+    const userUpdated =  await Users.findByIdAndUpdate(id,newUserData,{ new : true})
+      
     return userUpdated;
 }
 

@@ -1,28 +1,29 @@
 const mongoose = require('mongoose');
 
-const modelName = 'Users';
+const modelName = 'Posts';
 
 const schema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
         minLength: 2,
         maxLength: 100,
     },
-    profilePic: {
+    image: {
         type: String,
         required: true,
         minLength: 2,
         maxLength: 150,
     },
-    email: {
+    body: {
         type: String,
         required: true,
-        match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+        minLength: 2,
+        maxLength: 150,
     },
-    password: {
-        type: String,
-        required: true,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
     },
     createdAt: {
         type: Date,
@@ -32,6 +33,7 @@ const schema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    
 
 }) 
 
