@@ -42,7 +42,11 @@ async function deleteById(id){
 }
 
 async function updateById(id,newUserData){
-    const userUpdated =  await Users.findByIdAndUpdate(id,newUserData,{ new : true})  
+    
+    newUserData.updateAt = Date.now();
+    
+    const userUpdated =  await Users.findByIdAndUpdate(id,newUserData,{ new : true})
+      
     return userUpdated;
 }
 

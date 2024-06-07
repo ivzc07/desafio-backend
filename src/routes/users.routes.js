@@ -73,6 +73,7 @@ router.delete('/:id', async (request, response) =>{
 router.patch('/:id', async (request, response) => {
     try{
         const { id } = request.params;
+        
         const updatedKoder = await userUseCase.updateById(id, request.body);
         response.json({
             success: true, 
