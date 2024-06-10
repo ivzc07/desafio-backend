@@ -26,10 +26,10 @@ router.post('/', auth, async (request, response) => {
     }
 })
 
-router.get('/', async (request, response) => {
+router.get('/search', async (request, response) => {
     try{
 
-        const {search} = request.query
+        const { search } = request.query
         const allPosts = await postUseCase.getAll(search);
         response.json({
             success: true, 
