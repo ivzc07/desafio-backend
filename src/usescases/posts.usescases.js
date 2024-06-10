@@ -25,19 +25,19 @@ async function create(postData) {
 
 async function getAll () 
 {
-    const Posts = await Posts.find();
+    const postsData = await Posts.find().populate('user')
 
-    return Posts;
+    return postsData;
 }
 
 async function getById (id) {
-    const post = await Posts.findById(id);
+    const post = await Posts.findById(id).populate('user');
 
     return post; 
 }
 
 async function deleteById(id){
-    const postDeleted = await Posts.deleteById(id);
+    const postDeleted = await Posts.findByIdAndDelete(id);
 
     return postDeleted;
 }

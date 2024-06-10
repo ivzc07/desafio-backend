@@ -36,7 +36,8 @@ async function getById (id) {
 }
 
 async function deleteById(id){
-    const userDeleted = await Users.deleteById(id);
+
+    const userDeleted = await Users.findByIdAndDelete(id);
 
     return userDeleted;
 }
