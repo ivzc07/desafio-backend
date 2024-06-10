@@ -1,13 +1,14 @@
 const Posts = require('../models/posts.model');
 const createError = require('http-errors');
 const encrypt = require('../lib/encrypt');
+const { response } = require('express');
 // create //
 // getAll //
 // findById //
 // deleteById //
 // updateById //
 
-async function create(postData) {
+async function create(postData, userID) {
 
     const postsFound = await Posts.findOne({ title: postData.title });
 
@@ -15,8 +16,7 @@ async function create(postData) {
         throw createError(409, 'Title already exists');
     }
 
-   
-
+    postData.user = userID;
     const newPost = await Posts.create(postData);
 
     return newPost;
@@ -36,7 +36,16 @@ async function getById (id) {
     return post; 
 }
 
-async function deleteById(id){
+async function deleteById(id, userID){
+
+    const post = await Posts.findById(id)
+
+    userID = JSON.stringify(userID);
+    newID = JSON.stringify(post.user._id);
+
+    if(newID != userID){
+        throw createError(401, "You cant delete this post, you not the owner")
+    }
     const postDeleted = await Posts.findByIdAndDelete(id);
 
     return postDeleted;

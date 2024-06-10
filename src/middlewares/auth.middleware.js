@@ -16,6 +16,8 @@ async function auth(request, response, next){
 
         request.user = user;
 
+        next();
+
     }catch(error){
         response.status(401);
         response.json({
@@ -27,6 +29,4 @@ async function auth(request, response, next){
 
 }
 
-module.exports = {
-    auth
-}
+module.exports = auth;

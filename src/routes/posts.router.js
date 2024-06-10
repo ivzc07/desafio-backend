@@ -1,6 +1,6 @@
 const express = require('express')
 const postUseCase = require('../usescases/posts.usescases');
-
+const auth = require('../middlewares/auth.middleware');
 const router = express.Router();
 
 // create //
@@ -9,9 +9,10 @@ const router = express.Router();
 // deleteById //
 // updateById //
 
-router.post('/', async (request, response) => {
+router.post('/', auth, async (request, response) => {
     try{
-        const postCreated = await postUseCase.create(request.body);
+
+        const postCreated = await postUseCase.create(request.body, request.user._id);
         response.json({
             success: true, 
             data: { postCreated },
@@ -25,8 +26,9 @@ router.post('/', async (request, response) => {
     }
 })
 
-router.get('/', async (request, response) => {
+router.get('/',auth, async (request, response) => {
     try{
+        
         const allPosts = await postUseCase.getAll();
         response.json({
             success: true, 
@@ -41,10 +43,12 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.delete('/', async (request, response) => {
+router.delete('/:id',auth, async (request, response) => {
     try{
         const { id } = request.params;
-        const postDeleted = await postUseCase.deleteById(id);
+
+        const postDeleted = await postUseCase.deleteById(id,request.user._id); 
+          
         response.json({
             success: true,
             data: { postDeleted },
@@ -58,9 +62,15 @@ router.delete('/', async (request, response) => {
     }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id',auth, async (request, response) => {
     try{
+
+        const { id } = request.params;
+
         const newPostData = request.body;
+
+       // newPostData.user = request.user._id;
+
         const updatedPost = await postUseCase.updateById(id,newPostData);
 
         response.json({
