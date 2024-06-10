@@ -12,8 +12,10 @@ This is an APIRestful to post/manage users and posts
 $ git clone git@github.com:ivzc07/desafio-backend.git
 ```
 
-3. Once we have our repository cloned we point again to our directory (cd ./desafio-backend.git)
-
+3. Once we have our repository cloned we point again to our directory
+```
+cd ./desafio-backend.git
+```
 4. We must install all our project's dependecies with the next command, so we can use our project properly
 
 ```
