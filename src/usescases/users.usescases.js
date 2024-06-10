@@ -1,11 +1,7 @@
 const Users = require('../models/users.model');
 const createError = require('http-errors');
 const encrypt = require('../lib/encrypt');
-// create //
-// getAll //
-// findById //
-// deleteById //
-// updateById //
+
 
 async function create(userData) {
     const userFound = await Users.findOne({ email: userData.email });

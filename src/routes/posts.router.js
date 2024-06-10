@@ -69,10 +69,8 @@ router.patch('/:id',auth, async (request, response) => {
         const { id } = request.params;
 
         const newPostData = request.body;
-
-       //newPostData.user = request.user._id;
-
-        const updatedPost = await postUseCase.updateById(id,newPostData);
+       
+        const updatedPost = await postUseCase.updateById(id,newPostData,request.user._id);
 
         response.json({
             success: true,
