@@ -21,9 +21,11 @@ async function create(postData, userID) {
 
 async function getAll (search) 
 {   
+    console.log(typeof(search));
+    search = search.replace(/_/g, ' ').toLocaleLowerCase()
     const postsData = await Posts.find().populate('user')
     if(!search) return postsData
-    const dataFiltered = postsData.filter((elemento)=>elemento.title.includes(search))
+    const dataFiltered = postsData.filter((elemento)=>elemento.title.toLocaleLowerCase().includes(search))
     return dataFiltered;
 }
 
