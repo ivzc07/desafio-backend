@@ -2,11 +2,7 @@ const Posts = require('../models/posts.model');
 const createError = require('http-errors');
 const encrypt = require('../lib/encrypt');
 const { response } = require('express');
-// create //
-// getAll //
-// findById //
-// deleteById //
-// updateById //
+
 
 async function create(postData, userID) {
 
@@ -45,21 +41,28 @@ async function deleteById(id, userID){
     newID = JSON.stringify(post.user._id);
 
     if(newID != userID){
-        throw createError(401, "You cant delete this post, you not the owner")
+        throw createError(401, "You can't delete this post, you must be the owner")
     }
     const postDeleted = await Posts.findByIdAndDelete(id);
 
     return postDeleted;
 }
 
-async function updateById(id,newPostData){
+async function updateById(id,newPostData,userID){
     
     const post = await Posts.findById(id);
+   
+
+    userID = JSON.stringify(userID);
+    postUserID = JSON.stringify(post.user._id);
 
     newPostData.updateAt = Date.now();
     newPostData.user = post.user;
     
+    if(userID != postUserID){ throw createError(401, "You can't update this post, you're not the owner")}
+
     const postUpdated =  await Posts.findByIdAndUpdate(id,newPostData,{ new : true})
+
     if (!postUpdated) throw createError(404, "Post not found")
 
     return postUpdated;
