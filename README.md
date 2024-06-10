@@ -66,10 +66,12 @@ For this project we are using Clean Architecture to order our files and director
 - **POST /auth/login**: Logs you in and returns a JWT Token .
 - **POST /users**: Creates a new user.
 - **GET /users/:id**: Gives you an user info by ID.
-- **POST /posts**: Creates a new post.
 - **GET /posts**: Gives you the filtered posts by a query.
-- **PATCH /posts/:id**: Updates a specific post given by an ID.
-- **DELETE /posts/:id**: Deletes a picked post with an ID.
+- **🔒POST /posts**: Creates a new post.
+- **🔒PATCH /posts/:id**: Updates a specific post given by an ID.
+- **🔒DELETE /posts/:id**: Deletes a picked post with an ID.
+
+Remember that you must had logged into your user account using /auth/login endpoint so you can have access to the other endpoints that are marked with the 🔒 
 
 ## Body structure for Post/User
 
