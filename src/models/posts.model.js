@@ -13,17 +13,17 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
         minLength: 2,
-        maxLength: 150,
+        maxLength: 250,
     },
     body: {
         type: String,
         required: true,
         minLength: 2,
-        maxLength: 150,
+        maxLength: 300,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'Users',
     },
     createdAt: {
         type: Date,
@@ -33,8 +33,6 @@ const schema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    
-
 }) 
 
 module.exports = mongoose.model(modelName, schema);
