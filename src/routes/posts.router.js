@@ -3,11 +3,6 @@ const postUseCase = require('../usescases/posts.usescases');
 const auth = require('../middlewares/auth.middleware');
 const router = express.Router();
 
-// create //
-// getAll //
-// findById //
-// deleteById //
-// updateById //
 
 router.post('/', auth, async (request, response) => {
     try{
