@@ -23,11 +23,12 @@ async function create(postData, userID) {
 
 }
 
-async function getAll () 
-{
+async function getAll (search) 
+{   
     const postsData = await Posts.find().populate('user')
-
-    return postsData;
+    if(!search) return postsData
+    const dataFiltered = postsData.filter((elemento)=>elemento.title.includes(search))
+    return dataFiltered;
 }
 
 async function getById (id) {
@@ -53,10 +54,14 @@ async function deleteById(id, userID){
 
 async function updateById(id,newPostData){
     
+    const post = await Posts.findById(id);
+
     newPostData.updateAt = Date.now();
+    newPostData.user = post.user;
     
     const postUpdated =  await Posts.findByIdAndUpdate(id,newPostData,{ new : true})
-      
+    if (!postUpdated) throw createError(404, "Post not found")
+
     return postUpdated;
 }
 

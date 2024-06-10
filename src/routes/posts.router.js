@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/', auth, async (request, response) => {
     try{
-
+        
         const postCreated = await postUseCase.create(request.body, request.user._id);
         response.json({
             success: true, 
@@ -26,10 +26,11 @@ router.post('/', auth, async (request, response) => {
     }
 })
 
-router.get('/',auth, async (request, response) => {
+router.get('/', async (request, response) => {
     try{
-        
-        const allPosts = await postUseCase.getAll();
+
+        const {search} = request.query
+        const allPosts = await postUseCase.getAll(search);
         response.json({
             success: true, 
             data: allPosts,
@@ -69,7 +70,7 @@ router.patch('/:id',auth, async (request, response) => {
 
         const newPostData = request.body;
 
-       // newPostData.user = request.user._id;
+       //newPostData.user = request.user._id;
 
         const updatedPost = await postUseCase.updateById(id,newPostData);
 
