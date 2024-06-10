@@ -41,23 +41,6 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.get('/:id', async (request, response) => {
-    try{
-        const { id } = request.params;
-        const postFound = await postUseCase.getById(id);
-        response.json({
-            success: true, 
-            data: { postFound },
-        })
-    }catch(error){
-        response.status(error.status || 500);
-        response.json({
-            success: false,
-            error: error.message,
-        })
-    }
-})
-
 router.delete('/', async (request, response) => {
     try{
         const { id } = request.params;
